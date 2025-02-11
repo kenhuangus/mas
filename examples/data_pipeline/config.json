@@ -1,0 +1,93 @@
+{
+    "system_config": {
+        "name": "Data Pipeline MAS",
+        "version": "1.0.0"
+    },
+    "agents": {
+        "data_validator": {
+            "id": "validator_001",
+            "type": "data_validator",
+            "config": {
+                "input_validation": {
+                    "required_fields": ["data", "schema_version"],
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {"type": "string"},
+                                        "value": {"type": "number"}
+                                    }
+                                }
+                            },
+                            "schema_version": {"type": "string"}
+                        }
+                    }
+                }
+            }
+        },
+        "data_transformer": {
+            "id": "transformer_001",
+            "type": "data_transformer",
+            "config": {
+                "transformation_type": "normalize",
+                "max_retries": 3,
+                "normalization": {
+                    "method": "min_max",
+                    "target_range": [0, 1]
+                }
+            }
+        },
+        "data_aggregator": {
+            "id": "aggregator_001",
+            "type": "data_aggregator",
+            "config": {
+                "transformation_type": "aggregate",
+                "aggregation": {
+                    "method": "mean",
+                    "group_by": "name"
+                }
+            }
+        },
+        "data_formatter": {
+            "id": "formatter_001",
+            "type": "data_formatter",
+            "config": {
+                "output_format": "json",
+                "include_metadata": true,
+                "pretty_print": true
+            }
+        }
+    },
+    "workflow_definitions": {
+        "data_pipeline": {
+            "stages": [
+                {
+                    "name": "validate",
+                    "agent": "data_validator",
+                    "next_stage": "transform",
+                    "error_stage": "error_handling"
+                },
+                {
+                    "name": "transform",
+                    "agent": "data_transformer",
+                    "next_stage": "aggregate",
+                    "error_stage": "error_handling"
+                },
+                {
+                    "name": "aggregate",
+                    "agent": "data_aggregator",
+                    "next_stage": "format",
+                    "error_stage": "error_handling"
+                },
+                {
+                    "name": "format",
+                    "agent": "data_formatter"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,143 @@
+{
+  "system_config": {
+    "name": "Multi-Agent System",
+    "version": "1.0.0",
+    "environment": "development",
+    "default_communication_method": "direct"
+  },
+  "message_schemas": {
+    "standard_formats": {
+      "agent_request": {
+        "type": "object",
+        "properties": {
+          "request_id": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "source_agent": { "type": "string" },
+          "payload": { "type": "object" }
+        },
+        "required": ["request_id", "timestamp", "source_agent", "payload"]
+      },
+      "agent_response": {
+        "type": "object",
+        "required": ["request_id", "timestamp", "status", "payload"],
+        "properties": {
+          "request_id": { "type": "string", "format": "uuid" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "status": {
+            "type": "string",
+            "enum": ["success", "error", "pending"]
+          },
+          "payload": { "type": "object" }
+        }
+      }
+    }
+  },
+  "llm_configs": {
+    "claude": {
+      "model": "claude-2",
+      "provider": "anthropic",
+      "max_tokens": 1000,
+      "temperature": 0.7
+    },
+    "claude_3_small": {
+      "model": "claude-3",
+      "provider": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "api_version": "v1",
+      "max_tokens": 2048,
+      "temperature": 0.3
+    },
+    "claude_3_large": {
+      "model": "claude-3",
+      "provider": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "api_version": "v1",
+      "max_tokens": 4096,
+      "temperature": 0.1
+    }
+  },
+  "workflow_definitions": {
+    "main_workflow": {
+      "name": "Main Test Workflow",
+      "description": "A workflow to test all system features",
+      "stages": [
+        {
+          "name": "initiation",
+          "agent": "workflow_starter",
+          "next_stage": "processing",
+          "error_stage": "error_handling"
+        },
+        {
+          "name": "processing",
+          "agent": "data_processor_1",
+          "next_stage": "completion",
+          "error_stage": "error_handling"
+        },
+        {
+          "name": "completion",
+          "agent": "workflow_completer",
+          "error_stage": "error_handling"
+        },
+        {
+          "name": "error_handling",
+          "agent": "error_handler",
+          "next_stage": "completion"
+        }
+      ]
+    }
+  },
+  "agents": {
+    "workflow_starter": {
+      "id": "starter_001",
+      "type": "starter",
+      "llm_config": "claude",
+      "resources": "default",
+      "communication_method": "direct",
+      "config": {
+        "validation_schema": {
+          "type": "object",
+          "properties": {
+            "text_data": { "type": "string" },
+            "nested_data": { "type": "object" },
+            "list_data": { "type": "array" },
+            "number": { "type": "number" }
+          }
+        }
+      }
+    },
+    "data_processor_1": {
+      "id": "processor_001",
+      "version": "1.0",
+      "type": "processor",
+      "llm_config": "claude_3_large",
+      "resources": "high_performance",
+      "communication_method": "direct",
+      "config": {
+        "transformation_type": "uppercase",
+        "max_retries": 3,
+        "retry_delay": 1000
+      }
+    },
+    "workflow_completer": {
+      "id": "completer_001",
+      "version": "1.0",
+      "type": "end",
+      "llm_config": "claude_3_small",
+      "resources": "default",
+      "communication_method": "direct",
+      "config": {}
+    },
+    "error_handler": {
+      "id": "error_001",
+      "version": "1.0",
+      "type": "error_handler",
+      "llm_config": "claude_3_small",
+      "resources": "default",
+      "communication_method": "direct",
+      "config": {
+        "max_retries": 3,
+        "retry_delay": 1000
+      }
+    }
+  }
+}

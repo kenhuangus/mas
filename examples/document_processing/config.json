@@ -1,0 +1,54 @@
+{
+    "system_config": {
+        "name": "Document Processing MAS",
+        "version": "1.0.0"
+    },
+    "agents": {
+        "document_reader": {
+            "id": "reader_001",
+            "type": "document_reader",
+            "config": {
+                "input_validation": {
+                    "required_fields": ["text", "metadata"]
+                }
+            }
+        },
+        "text_processor": {
+            "id": "processor_001",
+            "type": "document_processor",
+            "config": {
+                "transformation_type": "uppercase",
+                "max_retries": 3
+            }
+        },
+        "document_writer": {
+            "id": "writer_001",
+            "type": "document_writer",
+            "config": {
+                "output_format": "json"
+            }
+        }
+    },
+    "workflow_definitions": {
+        "document_processing": {
+            "stages": [
+                {
+                    "name": "read",
+                    "agent": "document_reader",
+                    "next_stage": "process",
+                    "error_stage": "error_handling"
+                },
+                {
+                    "name": "process",
+                    "agent": "text_processor",
+                    "next_stage": "write",
+                    "error_stage": "error_handling"
+                },
+                {
+                    "name": "write",
+                    "agent": "document_writer"
+                }
+            ]
+        }
+    }
+}
