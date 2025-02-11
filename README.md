@@ -1,5 +1,6 @@
 # Configuration-Driven Multi-Agent System (MAS) Framework
 
+[![CI/CD](https://github.com/kenhuangus/mas/actions/workflows/ci.yml/badge.svg)](https://github.com/kenhuangus/mas/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/distributedapps-mas.svg)](https://badge.fury.io/py/distributedapps-mas)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -27,7 +28,7 @@ pip install distributedapps-mas
 2. Run the example test case:
 ```bash
 # Clone the repository
-git clone https://github.com/distributedapps/mas.git
+git clone https://github.com/kenhuangus/mas.git
 cd mas
 
 # Install in development mode
@@ -392,13 +393,13 @@ See our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ## Documentation
 
-Full documentation is available at [https://distributedapps.ai/docs/mas](https://distributedapps.ai/docs/mas)
+Full documentation is available at [https://github.com/kenhuangus/mas/wiki](https://github.com/kenhuangus/mas/wiki)
 
 ## Support
 
-- [Documentation](https://distributedapps.ai/docs/mas)
+- [Documentation](https://github.com/kenhuangus/mas/wiki)
 - [Discord Community](https://discord.gg/distributedapps)
-- [Issue Tracker](https://github.com/distributedapps/mas/issues)
+- [Issue Tracker](https://github.com/kenhuangus/mas/issues)
 - [Email Support](mailto:support@distributedapps.ai)
 
 ## License

@@ -32,10 +32,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/distributedapps/mas"
-Documentation = "https://distributedapps.ai/docs/mas"
-Repository = "https://github.com/distributedapps/mas.git"
-Issues = "https://github.com/distributedapps/mas/issues"
+Homepage = "https://github.com/kenhuangus/mas"
+Documentation = "https://github.com/kenhuangus/mas/wiki"
+Repository = "https://github.com/kenhuangus/mas.git"
+Issues = "https://github.com/kenhuangus/mas/issues"
 
 [tool.setuptools]
 packages = ["mas"]

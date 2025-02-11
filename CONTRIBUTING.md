@@ -35,6 +35,7 @@ Thank you for your interest in contributing to the Multi-Agent System Framework!
 - jsonschema>=4.17.3
 - typing-extensions>=4.8.0
 - python-json-logger>=2.0.7
+- pydantic>=2.0.0
 
 ### Development Tools
 - pytest for testing
@@ -240,7 +241,7 @@ class YourAgent(Agent):
 
 ## Questions?
 
-- Open an issue
+- Open an issue at [https://github.com/kenhuangus/mas/issues](https://github.com/kenhuangus/mas/issues)
 - Join our Discord
 - Email support@distributedapps.ai
 
